@@ -1,0 +1,3813 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>کیمدی امیر | فروشگاه کارت فوتبال</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Estedad:wght@400;500;600;700;800;900&family=Vazirmatn:wght@400;500;600;700;800;900&family=Orbitron:wght@500;700;800;900&display=swap" rel="stylesheet">
+
+<!-- PDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<style>
+
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+font-family:"Estedad","Vazirmatn",sans-serif;
+background:#03050a;
+color:white;
+overflow-x:hidden;
+}
+
+:root{
+--gold:#ffd21f;
+--orange:#ff8500;
+--blue:#26a8ff;
+--green:#17e889;
+--red:#ff4164;
+--purple:#9d6cff;
+--panel:#0c1422;
+--muted:#8793a7;
+}
+
+body:before{
+content:"";
+position:fixed;
+inset:0;
+z-index:-3;
+background:
+radial-gradient(circle at 10% 10%,#15345b 0,transparent 28%),
+radial-gradient(circle at 90% 15%,#543b09 0,transparent 25%),
+radial-gradient(circle at 50% 100%,#072327 0,transparent 35%);
+}
+
+body:after{
+content:"";
+position:fixed;
+inset:0;
+z-index:-2;
+opacity:.035;
+background-image:
+linear-gradient(#fff 1px,transparent 1px),
+linear-gradient(90deg,#fff 1px,transparent 1px);
+background-size:50px 50px;
+pointer-events:none;
+}
+
+/* PARTICLES */
+
+.particles{
+position:fixed;
+inset:0;
+pointer-events:none;
+overflow:hidden;
+z-index:-1;
+}
+
+.particle{
+position:absolute;
+width:4px;
+height:4px;
+background:var(--gold);
+border-radius:50%;
+box-shadow:0 0 15px var(--gold);
+animation:floatParticle linear infinite;
+}
+
+@keyframes floatParticle{
+0%{
+transform:translateY(110vh);
+opacity:0;
+}
+15%{
+opacity:.8;
+}
+85%{
+opacity:.8;
+}
+100%{
+transform:translateY(-20vh) translateX(100px);
+opacity:0;
+}
+}
+
+/* LOADER */
+
+#loader{
+position:fixed;
+inset:0;
+z-index:99999;
+display:flex;
+align-items:center;
+justify-content:center;
+background:
+radial-gradient(circle,#172d50,#050811 65%,#010204);
+transition:1s;
+}
+
+#loader.hide{
+opacity:0;
+visibility:hidden;
+transform:scale(1.08);
+}
+
+.loader{
+width:min(90%,430px);
+text-align:center;
+}
+
+.loaderBall{
+font-size:80px;
+display:inline-block;
+filter:drop-shadow(0 0 30px var(--gold));
+animation:
+ballSpin 1.5s linear infinite,
+ballUp 1s ease-in-out infinite alternate;
+}
+
+@keyframes ballSpin{
+to{
+transform:rotate(360deg);
+}
+}
+
+@keyframes ballUp{
+to{
+translate:0 -15px;
+}
+}
+
+.loaderLogo{
+font-family:Orbitron;
+font-size:28px;
+font-weight:900;
+color:var(--gold);
+margin-top:20px;
+}
+
+.loaderLogo span{
+color:#fff;
+}
+
+.loaderText{
+font-size:12px;
+color:var(--muted);
+margin:10px 0 20px;
+}
+
+.loaderBar{
+height:7px;
+border-radius:20px;
+overflow:hidden;
+background:#182234;
+}
+
+.loaderProgress{
+height:100%;
+width:0;
+background:
+linear-gradient(
+90deg,
+var(--orange),
+var(--gold),
+white
+);
+box-shadow:0 0 25px var(--gold);
+transition:.1s;
+}
+
+.loaderPercent{
+font-family:Orbitron;
+font-size:11px;
+color:var(--gold);
+margin-top:8px;
+}
+
+/* HEADER */
+
+header{
+position:fixed;
+top:0;
+left:0;
+right:0;
+height:76px;
+z-index:5000;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 5%;
+background:#05070ddd;
+backdrop-filter:blur(20px);
+border-bottom:1px solid #ffffff0d;
+}
+
+.logo{
+font-family:Orbitron;
+font-size:21px;
+font-weight:900;
+color:var(--gold);
+}
+
+.logo span{
+color:white;
+}
+
+.nav{
+display:flex;
+gap:5px;
+}
+
+.nav button{
+border:0;
+background:transparent;
+color:#9ba6b8;
+padding:10px 13px;
+border-radius:11px;
+cursor:pointer;
+font-size:11px;
+transition:.3s;
+}
+
+.nav button:hover,
+.nav button.active{
+background:var(--gold);
+color:#111;
+transform:translateY(-2px);
+}
+
+.headerButtons{
+display:flex;
+gap:7px;
+}
+
+.headerBtn{
+height:40px;
+padding:0 13px;
+border:0;
+border-radius:12px;
+cursor:pointer;
+font-weight:900;
+transition:.3s;
+}
+
+.headerBtn:hover{
+transform:translateY(-3px);
+}
+
+.favoriteHeader{
+background:#ff416418;
+color:#ff617b;
+border:1px solid #ff416444;
+}
+
+.cartHeader{
+background:linear-gradient(135deg,var(--gold),var(--orange));
+color:#111;
+}
+
+.count{
+display:inline-flex;
+align-items:center;
+justify-content:center;
+min-width:20px;
+height:20px;
+border-radius:50%;
+background:#111;
+color:white;
+font-size:9px;
+margin-right:4px;
+}
+
+/* PAGE */
+
+.page{
+display:none;
+min-height:100vh;
+padding-top:76px;
+animation:pageIn .6s ease both;
+}
+
+.page.active{
+display:block;
+}
+
+@keyframes pageIn{
+from{
+opacity:0;
+transform:translateY(25px);
+}
+to{
+opacity:1;
+transform:none;
+}
+}
+
+/* HERO */
+
+.hero{
+min-height:calc(100vh - 76px);
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+position:relative;
+overflow:hidden;
+padding:80px 20px;
+}
+
+.heroGlow{
+position:absolute;
+width:650px;
+height:650px;
+border-radius:50%;
+background:#ffd21f0b;
+filter:blur(35px);
+animation:heroGlow 5s ease-in-out infinite alternate;
+}
+
+@keyframes heroGlow{
+from{
+transform:scale(.7);
+}
+to{
+transform:scale(1.25);
+}
+}
+
+.heroBall{
+position:absolute;
+font-size:160px;
+opacity:.04;
+animation:heroRotate 15s linear infinite;
+}
+
+@keyframes heroRotate{
+from{
+transform:rotate(0deg) translateX(250px) rotate(0deg);
+}
+to{
+transform:rotate(360deg) translateX(250px) rotate(-360deg);
+}
+}
+
+.heroContent{
+position:relative;
+z-index:2;
+max-width:900px;
+animation:heroContent .9s ease both;
+}
+
+@keyframes heroContent{
+from{
+opacity:0;
+transform:translateY(50px);
+}
+to{
+opacity:1;
+transform:none;
+}
+}
+
+.badge{
+display:inline-block;
+padding:8px 15px;
+border:1px solid #ffd21f44;
+background:#ffd21f0b;
+border-radius:50px;
+font-size:11px;
+color:var(--gold);
+margin-bottom:20px;
+animation:badgePulse 2s infinite;
+}
+
+@keyframes badgePulse{
+50%{
+box-shadow:0 0 35px #ffd21f22;
+}
+}
+
+.hero h1{
+font-size:clamp(45px,8vw,90px);
+font-weight:900;
+line-height:1.1;
+background:
+linear-gradient(
+90deg,
+#fff,
+var(--gold),
+#fff,
+var(--gold)
+);
+background-size:300%;
+-webkit-background-clip:text;
+color:transparent;
+animation:textShine 5s linear infinite;
+}
+
+@keyframes textShine{
+to{
+background-position:300%;
+}
+}
+
+.hero h1 small{
+display:block;
+font-family:Orbitron;
+font-size:.24em;
+letter-spacing:6px;
+margin-top:20px;
+}
+
+.hero p{
+max-width:700px;
+margin:25px auto;
+color:#9ba7b9;
+line-height:2.2;
+font-size:14px;
+}
+
+.heroButtons{
+display:flex;
+justify-content:center;
+gap:12px;
+flex-wrap:wrap;
+margin-top:30px;
+}
+
+.bigBtn{
+padding:15px 25px;
+border-radius:14px;
+font-weight:900;
+border:0;
+cursor:pointer;
+transition:.3s;
+}
+
+.bigBtn:hover{
+transform:translateY(-6px) scale(1.03);
+}
+
+.goldBtn{
+background:var(--gold);
+color:#111;
+}
+
+.darkBtn{
+background:#ffffff08;
+color:#fff;
+border:1px solid #ffffff15;
+}
+
+/* CONTAINER */
+
+.container{
+max-width:1250px;
+margin:auto;
+padding:80px 20px;
+}
+
+.title{
+font-size:34px;
+font-weight:900;
+margin-bottom:8px;
+}
+
+.title span{
+color:var(--gold);
+}
+
+.subtitle{
+font-size:13px;
+color:var(--muted);
+margin-bottom:35px;
+}
+
+/* CATEGORIES */
+
+.categoryGrid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:22px;
+}
+
+.category{
+min-height:320px;
+padding:30px;
+border-radius:26px;
+background:
+linear-gradient(145deg,#172238,#080d16);
+border:1px solid #ffffff0d;
+position:relative;
+overflow:hidden;
+transition:.5s;
+}
+
+.category:after{
+content:"";
+position:absolute;
+width:300px;
+height:300px;
+border-radius:50%;
+background:#ffd21f08;
+right:-150px;
+bottom:-150px;
+}
+
+.category:hover{
+transform:translateY(-12px);
+border-color:#ffd21f55;
+box-shadow:0 30px 70px #000b;
+}
+
+.categoryIcon{
+font-size:68px;
+margin-bottom:20px;
+transition:.5s;
+}
+
+.category:hover .categoryIcon{
+transform:scale(1.18) rotate(-8deg);
+}
+
+.category h2{
+font-size:23px;
+}
+
+.category p{
+font-size:12px;
+line-height:2;
+color:#8793a7;
+margin-top:8px;
+}
+
+.category button{
+margin-top:20px;
+border:0;
+background:var(--gold);
+color:#111;
+padding:11px 16px;
+border-radius:10px;
+font-weight:900;
+cursor:pointer;
+}
+
+/* FEATURES */
+
+.features{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:15px;
+margin-top:50px;
+}
+
+.feature{
+text-align:center;
+padding:25px 15px;
+border-radius:20px;
+border:1px solid #ffffff0c;
+background:#ffffff04;
+transition:.35s;
+}
+
+.feature:hover{
+transform:translateY(-8px);
+background:#ffd21f08;
+}
+
+.featureIcon{
+font-size:34px;
+margin-bottom:10px;
+}
+
+.feature h3{
+font-size:14px;
+}
+
+.feature p{
+font-size:11px;
+color:#737f91;
+line-height:1.8;
+margin-top:7px;
+}
+
+/* SHOP */
+
+.shop{
+max-width:1350px;
+margin:auto;
+padding:55px 20px 100px;
+}
+
+.shopHero{
+padding:50px 20px;
+text-align:center;
+border-radius:30px;
+background:
+radial-gradient(circle,#263e68,#0b111d 65%);
+border:1px solid #ffffff12;
+margin-bottom:35px;
+}
+
+.shopIcon{
+font-size:65px;
+animation:shopIcon 2s ease-in-out infinite alternate;
+}
+
+@keyframes shopIcon{
+to{
+transform:translateY(-12px) rotate(5deg);
+}
+}
+
+.shopHero h1{
+font-size:40px;
+font-weight:900;
+margin:10px 0;
+}
+
+.shopHero p{
+font-size:13px;
+color:#929daf;
+}
+
+/* SEARCH */
+
+.searchBox{
+max-width:650px;
+margin:0 auto 25px;
+position:relative;
+}
+
+.searchBox input{
+width:100%;
+height:54px;
+background:#070d16;
+border:1px solid #ffffff15;
+border-radius:16px;
+outline:none;
+color:white;
+font-size:13px;
+padding:0 52px 0 50px;
+transition:.3s;
+}
+
+.searchBox input:focus{
+border-color:#ffd21f66;
+box-shadow:0 0 35px #ffd21f10;
+}
+
+.searchIcon{
+position:absolute;
+right:18px;
+top:50%;
+transform:translateY(-50%);
+font-size:20px;
+}
+
+.clearSearch{
+position:absolute;
+left:9px;
+top:9px;
+height:36px;
+width:36px;
+border:0;
+border-radius:10px;
+background:#ffffff0b;
+color:#aaa;
+cursor:pointer;
+display:none;
+}
+
+/* FILTER */
+
+.filters{
+display:flex;
+gap:8px;
+flex-wrap:wrap;
+margin-bottom:25px;
+}
+
+.filter{
+padding:9px 14px;
+border-radius:10px;
+background:#ffffff06;
+border:1px solid #ffffff12;
+color:#aab4c4;
+font-size:11px;
+cursor:pointer;
+transition:.3s;
+}
+
+.filter:hover,
+.filter.active{
+background:var(--gold);
+color:#111;
+}
+
+/* PRODUCTS */
+
+.products{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:20px;
+}
+
+.product{
+background:linear-gradient(145deg,#141f31,#080d16);
+border:1px solid #ffffff0c;
+border-radius:22px;
+padding:13px;
+overflow:hidden;
+position:relative;
+transition:.45s;
+animation:productIn .6s both;
+}
+
+@keyframes productIn{
+from{
+opacity:0;
+transform:translateY(30px) scale(.96);
+}
+to{
+opacity:1;
+transform:none;
+}
+}
+
+.product:hover{
+transform:translateY(-10px);
+border-color:#ffd21f55;
+box-shadow:0 25px 65px #000c;
+}
+
+.productImage{
+height:210px;
+border-radius:16px;
+background:
+radial-gradient(circle,#304a77,#111a2a 62%,#070a10);
+display:flex;
+align-items:center;
+justify-content:center;
+position:relative;
+overflow:hidden;
+}
+
+.productImage:after{
+content:"";
+position:absolute;
+width:180%;
+height:35px;
+background:#ffffff17;
+transform:rotate(-30deg) translateX(-80%);
+transition:.7s;
+}
+
+.product:hover .productImage:after{
+transform:rotate(-30deg) translateX(80%);
+}
+
+.productIcon{
+font-size:75px;
+filter:drop-shadow(0 18px 20px #000);
+transition:.5s;
+}
+
+.product:hover .productIcon{
+transform:scale(1.15) rotate(-5deg);
+}
+
+.status{
+position:absolute;
+right:9px;
+top:9px;
+z-index:3;
+padding:6px 9px;
+border-radius:8px;
+font-size:9px;
+font-weight:900;
+background:var(--green);
+color:#06140c;
+}
+
+.status.off{
+background:var(--red);
+color:white;
+}
+
+/* FAVORITE */
+
+.favoriteBtn{
+position:absolute;
+left:9px;
+top:9px;
+z-index:5;
+width:40px;
+height:40px;
+border:1px solid #ffffff20;
+border-radius:12px;
+background:#050912c9;
+backdrop-filter:blur(8px);
+color:white;
+font-size:24px;
+cursor:pointer;
+transition:.3s;
+}
+
+.favoriteBtn:hover{
+transform:scale(1.15);
+}
+
+.favoriteBtn.liked{
+color:var(--red);
+background:#ff416420;
+border-color:#ff416477;
+box-shadow:0 0 20px #ff416455;
+animation:heartPop .45s ease;
+}
+
+@keyframes heartPop{
+0%{transform:scale(.5)}
+55%{transform:scale(1.35)}
+100%{transform:scale(1)}
+}
+
+.heartParticle{
+position:fixed;
+z-index:50000;
+pointer-events:none;
+color:var(--red);
+font-size:20px;
+animation:heartFloat .9s ease-out forwards;
+}
+
+@keyframes heartFloat{
+0%{
+opacity:1;
+transform:translate(-50%,-50%) scale(.5);
+}
+100%{
+opacity:0;
+transform:translate(-50%,-140px) scale(1.6);
+}
+}
+
+.product h3{
+font-size:13px;
+line-height:1.9;
+min-height:53px;
+margin:14px 3px 7px;
+}
+
+.productBottom{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:5px;
+}
+
+.price{
+color:var(--gold);
+font-size:16px;
+font-weight:900;
+}
+
+.price small{
+font-size:8px;
+color:#687386;
+}
+
+.buy{
+border:0;
+padding:9px 12px;
+border-radius:10px;
+background:var(--gold);
+color:#111;
+font-weight:900;
+font-size:11px;
+cursor:pointer;
+transition:.25s;
+}
+
+.buy:hover{
+transform:scale(1.08);
+}
+
+.buy.added{
+background:var(--green);
+}
+
+.buy:disabled{
+background:#333b49;
+color:#777;
+cursor:not-allowed;
+}
+
+/* PAYMENT */
+
+.paymentSection{
+max-width:1050px;
+margin:auto;
+padding:70px 20px 100px;
+}
+
+.paymentHeader{
+text-align:center;
+margin-bottom:35px;
+}
+
+.paymentHeader .bigIcon{
+font-size:65px;
+display:block;
+margin-bottom:10px;
+animation:cardFloat 2s ease-in-out infinite alternate;
+}
+
+@keyframes cardFloat{
+to{
+transform:translateY(-10px) rotate(3deg);
+}
+}
+
+.paymentHeader h1{
+font-size:40px;
+font-weight:900;
+}
+
+.paymentHeader h1 span{
+color:var(--gold);
+}
+
+.paymentHeader p{
+color:var(--muted);
+font-size:13px;
+margin-top:8px;
+}
+
+/* BANK CARD */
+
+.bankCard{
+width:min(100%,650px);
+height:370px;
+margin:40px auto;
+position:relative;
+overflow:hidden;
+border-radius:30px;
+padding:32px;
+background:
+linear-gradient(
+135deg,
+#101927,
+#253d67 45%,
+#111827
+);
+border:1px solid #ffffff25;
+box-shadow:
+0 35px 100px #000,
+0 0 50px #ffd21f12;
+transform-style:preserve-3d;
+transition:.5s;
+animation:bankCardFloat 4s ease-in-out infinite;
+}
+
+@keyframes bankCardFloat{
+0%,100%{
+transform:translateY(0) rotateX(0) rotateY(0);
+}
+50%{
+transform:translateY(-10px) rotateX(1deg) rotateY(-1deg);
+}
+}
+
+.bankCard:before{
+content:"";
+position:absolute;
+width:350px;
+height:350px;
+border-radius:50%;
+background:#ffd21f15;
+filter:blur(20px);
+right:-150px;
+top:-150px;
+}
+
+.bankCard:after{
+content:"";
+position:absolute;
+width:150%;
+height:70px;
+background:#ffffff0d;
+transform:rotate(-25deg) translateX(-80%);
+animation:cardShine 4s infinite;
+}
+
+@keyframes cardShine{
+0%,45%{
+transform:rotate(-25deg) translateX(-100%);
+}
+65%,100%{
+transform:rotate(-25deg) translateX(100%);
+}
+}
+
+.bankTop{
+display:flex;
+align-items:center;
+justify-content:space-between;
+position:relative;
+z-index:2;
+}
+
+.bankName{
+font-family:Orbitron;
+font-size:14px;
+font-weight:900;
+letter-spacing:2px;
+}
+
+.bankLogo{
+font-size:40px;
+}
+
+.chip{
+width:65px;
+height:48px;
+border-radius:10px;
+margin-top:55px;
+background:
+linear-gradient(
+135deg,
+#ffe89a,
+#b98d20,
+#ffe9a0
+);
+box-shadow:0 4px 15px #0005;
+position:relative;
+z-index:2;
+}
+
+.chip:before,
+.chip:after{
+content:"";
+position:absolute;
+background:#8c681b;
+}
+
+.chip:before{
+width:2px;
+height:100%;
+left:50%;
+}
+
+.chip:after{
+height:2px;
+width:100%;
+top:50%;
+}
+
+.cardNumber{
+font-family:Orbitron;
+font-size:clamp(20px,5vw,32px);
+letter-spacing:4px;
+margin-top:28px;
+position:relative;
+z-index:2;
+text-shadow:0 4px 20px #000;
+direction:ltr;
+text-align:left;
+}
+
+.cardBottom{
+display:flex;
+justify-content:space-between;
+align-items:end;
+position:absolute;
+left:32px;
+right:32px;
+bottom:30px;
+z-index:2;
+}
+
+.cardHolderLabel{
+font-size:9px;
+color:#aeb9c9;
+}
+
+.cardHolder{
+font-size:17px;
+font-weight:900;
+margin-top:4px;
+}
+
+.cardMark{
+font-family:Orbitron;
+font-weight:900;
+font-size:17px;
+color:var(--gold);
+}
+
+/* PAYMENT ACTIONS */
+
+.paymentActions{
+display:flex;
+justify-content:center;
+gap:10px;
+flex-wrap:wrap;
+}
+
+.paymentBtn{
+border:0;
+padding:13px 20px;
+border-radius:13px;
+font-weight:900;
+cursor:pointer;
+transition:.3s;
+}
+
+.copyCard{
+background:var(--gold);
+color:#111;
+}
+
+.paymentBtn:hover{
+transform:translateY(-5px);
+box-shadow:0 15px 30px #0005;
+}
+
+.paymentInfo{
+margin-top:35px;
+padding:25px;
+border-radius:20px;
+background:#ffffff05;
+border:1px solid #ffffff0d;
+text-align:center;
+}
+
+.paymentInfo h3{
+color:var(--gold);
+margin-bottom:10px;
+}
+
+.paymentInfo p{
+font-size:12px;
+color:#8e99aa;
+line-height:2;
+}
+
+/* INVOICE */
+
+.invoiceSection{
+max-width:1100px;
+margin:auto;
+padding:70px 20px 110px;
+}
+
+.invoiceHeader{
+text-align:center;
+margin-bottom:35px;
+}
+
+.invoiceHeader .icon{
+font-size:65px;
+display:block;
+animation:invoiceFloat 2s ease-in-out infinite alternate;
+}
+
+@keyframes invoiceFloat{
+to{
+transform:translateY(-10px) rotate(-4deg);
+}
+}
+
+.invoiceHeader h1{
+font-size:40px;
+font-weight:900;
+}
+
+.invoiceHeader h1 span{
+color:var(--gold);
+}
+
+.invoiceHeader p{
+font-size:13px;
+color:var(--muted);
+margin-top:8px;
+}
+
+.invoiceBox{
+background:
+linear-gradient(145deg,#111c2d,#080d15);
+border:1px solid #ffffff12;
+border-radius:25px;
+padding:25px;
+box-shadow:0 30px 70px #0008;
+}
+
+.invoiceEmpty{
+padding:60px 20px;
+text-align:center;
+color:#8995a7;
+}
+
+.invoiceEmpty div{
+font-size:60px;
+margin-bottom:15px;
+}
+
+.invoiceItems{
+display:flex;
+flex-direction:column;
+gap:10px;
+}
+
+.invoiceItem{
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:15px;
+background:#ffffff05;
+border:1px solid #ffffff09;
+border-radius:13px;
+}
+
+.invoiceItemName{
+font-size:12px;
+line-height:1.8;
+}
+
+.invoiceItemPrice{
+font-weight:900;
+color:var(--gold);
+font-size:13px;
+}
+
+.invoiceTotal{
+margin-top:20px;
+padding-top:20px;
+border-top:1px solid #ffffff12;
+display:flex;
+align-items:center;
+justify-content:space-between;
+font-size:21px;
+font-weight:900;
+}
+
+.invoiceTotal span{
+color:var(--gold);
+}
+
+.invoiceActions{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+margin-top:25px;
+}
+
+.invoiceAction{
+border:0;
+padding:13px 18px;
+border-radius:12px;
+font-weight:900;
+cursor:pointer;
+transition:.3s;
+}
+
+.invoiceAction:hover{
+transform:translateY(-4px);
+}
+
+.downloadInvoice{
+background:var(--gold);
+color:#111;
+}
+
+.invoiceCart{
+background:#ffffff0b;
+color:white;
+border:1px solid #ffffff12;
+}
+
+/* MODAL */
+
+.modal{
+position:fixed;
+inset:0;
+z-index:9000;
+display:none;
+align-items:center;
+justify-content:center;
+padding:20px;
+background:#000d;
+backdrop-filter:blur(14px);
+}
+
+.modal.show{
+display:flex;
+}
+
+.modalBox{
+width:min(100%,620px);
+max-height:90vh;
+overflow:auto;
+padding:25px;
+border-radius:25px;
+background:#101928;
+border:1px solid #ffffff15;
+box-shadow:0 40px 100px #000;
+animation:modalIn .4s;
+}
+
+@keyframes modalIn{
+from{
+opacity:0;
+transform:scale(.8) translateY(30px);
+}
+to{
+opacity:1;
+transform:none;
+}
+}
+
+.close{
+float:left;
+width:37px;
+height:37px;
+border:0;
+border-radius:10px;
+background:#ffffff09;
+color:white;
+font-size:22px;
+cursor:pointer;
+}
+
+.modalBox h2{
+color:var(--gold);
+margin-bottom:20px;
+}
+
+.empty{
+text-align:center;
+padding:40px 10px;
+color:#8995a9;
+line-height:2;
+}
+
+.empty div{
+font-size:55px;
+}
+
+.orderItem{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:10px;
+padding:13px 0;
+border-bottom:1px solid #ffffff0c;
+}
+
+.orderName{
+font-size:12px;
+line-height:1.8;
+}
+
+.orderPrice{
+color:var(--gold);
+font-weight:900;
+}
+
+.remove{
+border:0;
+background:#ff416415;
+color:#ff6077;
+width:30px;
+height:30px;
+border-radius:8px;
+cursor:pointer;
+}
+
+.total{
+font-size:21px;
+font-weight:900;
+margin-top:20px;
+}
+
+.total span{
+color:var(--gold);
+}
+
+.rubika{
+margin-top:20px;
+padding:18px;
+border-radius:16px;
+background:#070c14;
+line-height:2;
+font-size:12px;
+}
+
+.rubika strong{
+color:var(--gold);
+font-family:Orbitron;
+}
+
+.copyBtn{
+border:0;
+background:var(--gold);
+color:#111;
+font-weight:900;
+padding:11px 17px;
+border-radius:10px;
+cursor:pointer;
+margin-top:10px;
+}
+
+/* FAVORITES */
+
+.favoriteProduct{
+display:flex;
+align-items:center;
+gap:12px;
+padding:12px;
+border-bottom:1px solid #ffffff0c;
+}
+
+.favoriteProductIcon{
+width:55px;
+height:55px;
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:12px;
+background:#ffffff08;
+font-size:28px;
+}
+
+.favoriteProductInfo{
+flex:1;
+}
+
+.favoriteProductInfo h4{
+font-size:12px;
+line-height:1.8;
+}
+
+.favoriteProductInfo p{
+font-size:11px;
+font-weight:900;
+color:var(--gold);
+}
+
+.favoriteRemove{
+border:0;
+background:#ff416415;
+color:#ff4164;
+width:32px;
+height:32px;
+border-radius:9px;
+cursor:pointer;
+}
+
+/* SUCCESS */
+
+.successOverlay{
+position:fixed;
+inset:0;
+z-index:20000;
+display:none;
+align-items:center;
+justify-content:center;
+background:
+radial-gradient(circle,#172d4e,#02050a 70%);
+overflow:hidden;
+}
+
+.successOverlay.show{
+display:flex;
+}
+
+.successContent{
+position:relative;
+z-index:2;
+text-align:center;
+width:min(90%,650px);
+animation:successIn .7s cubic-bezier(.2,.9,.2,1);
+}
+
+@keyframes successIn{
+from{
+opacity:0;
+transform:scale(.5) translateY(80px);
+}
+to{
+opacity:1;
+transform:none;
+}
+}
+
+.successBall{
+font-size:90px;
+filter:drop-shadow(0 0 35px var(--gold));
+animation:successBall 1.8s ease-in-out infinite alternate;
+}
+
+@keyframes successBall{
+to{
+transform:translateY(-15px) rotate(12deg);
+}
+}
+
+.successCheck{
+width:105px;
+height:105px;
+margin:20px auto;
+border-radius:50%;
+border:5px solid var(--green);
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:58px;
+color:var(--green);
+box-shadow:0 0 25px #16e887,0 0 70px #16e88744;
+animation:checkPop .7s cubic-bezier(.2,1.5,.5,1);
+}
+
+@keyframes checkPop{
+from{
+transform:scale(0) rotate(-90deg);
+}
+to{
+transform:scale(1) rotate(0);
+}
+}
+
+.successContent h1{
+font-size:clamp(32px,7vw,60px);
+font-weight:900;
+color:var(--gold);
+}
+
+.successContent p{
+color:#9ba7b9;
+line-height:2;
+margin-top:12px;
+}
+
+.successRubika{
+color:var(--green)!important;
+font-weight:900;
+}
+
+.successClose{
+margin-top:25px;
+border:0;
+padding:13px 22px;
+border-radius:12px;
+background:var(--gold);
+color:#111;
+font-weight:900;
+cursor:pointer;
+}
+
+/* FOOTER */
+
+footer{
+padding:60px 7%;
+background:#020408;
+border-top:1px solid #ffffff0b;
+}
+
+.footerGrid{
+max-width:1250px;
+margin:auto;
+display:grid;
+grid-template-columns:2fr 1fr 1fr;
+gap:30px;
+}
+
+footer h2{
+font-family:Orbitron;
+color:var(--gold);
+}
+
+footer h3{
+margin-bottom:12px;
+}
+
+footer p,
+footer li{
+color:#737e92;
+font-size:12px;
+line-height:2;
+}
+
+footer ul{
+list-style:none;
+}
+
+footer li button{
+background:none;
+border:0;
+color:#737e92;
+cursor:pointer;
+font-family:inherit;
+}
+
+.copy{
+max-width:1250px;
+margin:35px auto 0;
+padding-top:20px;
+border-top:1px solid #ffffff0b;
+text-align:center;
+color:#515b6c;
+font-size:11px;
+}
+
+/* TOAST */
+
+.toast{
+position:fixed;
+left:50%;
+bottom:25px;
+z-index:30000;
+transform:translate(-50%,30px);
+opacity:0;
+background:#142033;
+border:1px solid #ffd21f44;
+padding:13px 20px;
+border-radius:13px;
+font-size:12px;
+box-shadow:0 15px 40px #000;
+transition:.4s;
+pointer-events:none;
+}
+
+.toast.show{
+opacity:1;
+transform:translate(-50%,0);
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1050px){
+
+.products{
+grid-template-columns:repeat(3,1fr);
+}
+
+}
+
+@media(max-width:800px){
+
+header{
+height:auto;
+min-height:72px;
+padding:10px 12px;
+flex-wrap:wrap;
+}
+
+.nav{
+order:3;
+width:100%;
+justify-content:center;
+overflow-x:auto;
+}
+
+.categoryGrid{
+grid-template-columns:1fr;
+}
+
+.features{
+grid-template-columns:repeat(2,1fr);
+}
+
+.products{
+grid-template-columns:repeat(2,1fr);
+}
+
+.bankCard{
+height:320px;
+}
+
+}
+
+@media(max-width:500px){
+
+.products{
+grid-template-columns:1fr;
+}
+
+.features{
+grid-template-columns:1fr;
+}
+
+.hero h1{
+font-size:50px;
+}
+
+.shopHero h1,
+.paymentHeader h1,
+.invoiceHeader h1{
+font-size:30px;
+}
+
+.bankCard{
+height:270px;
+padding:20px;
+}
+
+.chip{
+margin-top:25px;
+width:55px;
+height:40px;
+}
+
+.cardNumber{
+font-size:18px;
+letter-spacing:2px;
+margin-top:20px;
+}
+
+.cardBottom{
+left:20px;
+right:20px;
+bottom:20px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="particles" id="particles"></div>
+
+<!-- LOADER -->
+
+<div id="loader">
+
+<div class="loader">
+
+<div class="loaderBall">⚽</div>
+
+<div class="loaderLogo">
+KIMEDI <span>AMIR</span>
+</div>
+
+<div class="loaderText" id="loaderText">
+در حال آماده‌سازی فروشگاه...
+</div>
+
+<div class="loaderBar">
+<div class="loaderProgress" id="progress"></div>
+</div>
+
+<div class="loaderPercent" id="percent">
+0%
+</div>
+
+</div>
+
+</div>
+
+
+<!-- HEADER -->
+
+<header>
+
+<div class="logo">
+KIMEDI <span>AMIR</span>
+</div>
+
+<nav class="nav">
+
+<button data-page="home" class="active">
+خانه
+</button>
+
+<button data-page="packs">
+📦 پک‌ها
+</button>
+
+<button data-page="albums">
+📚 آلبوم‌ها
+</button>
+
+<button data-page="cards">
+🃏 کارت‌ها
+</button>
+
+<button data-page="payment">
+💳 واریز
+</button>
+
+<button data-page="invoice">
+🧾 فاکتور
+</button>
+
+</nav>
+
+<div class="headerButtons">
+
+<button
+class="headerBtn favoriteHeader"
+onclick="openFavorites()">
+♥
+<span class="count" id="favoriteCount">0</span>
+</button>
+
+<button
+class="headerBtn cartHeader"
+onclick="openCart()">
+🛒
+<span class="count" id="cartCount">0</span>
+</button>
+
+</div>
+
+</header>
+
+
+<!-- HOME -->
+
+<section class="page active" id="home">
+
+<div class="hero">
+
+<div class="heroGlow"></div>
+
+<div class="heroBall">
+⚽
+</div>
+
+<div class="heroContent">
+
+<div class="badge">
+⚡ فروشگاه رسمی کیمدی امیر ⚡
+</div>
+
+<h1>
+
+کیمدی امیر
+
+<small>
+FOOTBALL CARD STORE
+</small>
+
+</h1>
+
+<p>
+دنیای کارت‌های فوتبال، پک‌های خاص و آلبوم‌های کلکسیونی.
+محصول مورد علاقه‌ات را انتخاب کن، به سبد خرید اضافه کن
+و سفارش خودت را آماده کن.
+</p>
+
+<div class="heroButtons">
+
+<button
+class="bigBtn goldBtn"
+onclick="showPage('packs')">
+📦 مشاهده پک‌ها
+</button>
+
+<button
+class="bigBtn darkBtn"
+onclick="showPage('cards')">
+🃏 مشاهده کارت‌ها
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="container">
+
+<div class="title">
+فروشگاه <span>کیمدی امیر</span>
+</div>
+
+<div class="subtitle">
+همه چیز برای یک کلکسیونر فوتبال.
+</div>
+
+<div class="categoryGrid">
+
+<div class="category">
+
+<div class="categoryIcon">
+📦
+</div>
+
+<h2>
+پک‌های کیمدی
+</h2>
+
+<p>
+پک‌های آیکانز، هیروز، چمپس،
+جام جهانی، کیمدی شو و سامر.
+</p>
+
+<button onclick="showPage('packs')">
+مشاهده پک‌ها ←
+</button>
+
+</div>
+
+
+<div class="category">
+
+<div class="categoryIcon">
+📚
+</div>
+
+<h2>
+آلبوم‌ها
+</h2>
+
+<p>
+آلبوم‌های کمیک، رویال،
+مجیک تویینز و راک استار.
+</p>
+
+<button onclick="showPage('albums')">
+مشاهده آلبوم‌ها ←
+</button>
+
+</div>
+
+
+<div class="category">
+
+<div class="categoryIcon">
+🃏
+</div>
+
+<h2>
+کارت‌های فوتبال
+</h2>
+
+<p>
+کارت‌های بیسیک، پرایم، کلاب،
+ادونس و کارت‌های ویژه.
+</p>
+
+<button onclick="showPage('cards')">
+مشاهده کارت‌ها ←
+</button>
+
+</div>
+
+</div>
+
+
+<div class="features">
+
+<div class="feature">
+<div class="featureIcon">⚡</div>
+<h3>سفارش سریع</h3>
+<p>محصولات را انتخاب کن و سفارش را آماده کن.</p>
+</div>
+
+<div class="feature">
+<div class="featureIcon">❤️</div>
+<h3>علاقه‌مندی‌ها</h3>
+<p>محصولات مورد علاقه‌ات را ذخیره کن.</p>
+</div>
+
+<div class="feature">
+<div class="featureIcon">🧾</div>
+<h3>فاکتور PDF</h3>
+<p>فاکتور سفارش را آماده و دانلود کن.</p>
+</div>
+
+<div class="feature">
+<div class="featureIcon">💳</div>
+<h3>پرداخت</h3>
+<p>اطلاعات واریز داخل سایت قرار دارد.</p>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- PACKS -->
+
+<section class="page" id="packs">
+
+<div class="shop">
+
+<div class="shopHero">
+
+<div class="shopIcon">
+📦
+</div>
+
+<h1>
+پک‌های کیمدی
+</h1>
+
+<p>
+پک مورد علاقه‌ات را انتخاب کن.
+</p>
+
+</div>
+
+<div class="filters">
+
+<button class="filter active"
+onclick="filterProducts('packs','all',this)">
+همه
+</button>
+
+<button class="filter"
+onclick="filterProducts('packs','available',this)">
+موجود
+</button>
+
+<button class="filter"
+onclick="filterProducts('packs','off',this)">
+ناموجود
+</button>
+
+</div>
+
+<div class="products" id="packsProducts"></div>
+
+</div>
+
+</section>
+
+
+<!-- ALBUMS -->
+
+<section class="page" id="albums">
+
+<div class="shop">
+
+<div class="shopHero">
+
+<div class="shopIcon">
+📚
+</div>
+
+<h1>
+آلبوم‌های کیمدی
+</h1>
+
+<p>
+آلبوم‌های کلکسیونی فوتبال.
+</p>
+
+</div>
+
+<div class="filters">
+
+<button class="filter active"
+onclick="filterProducts('albums','all',this)">
+همه
+</button>
+
+<button class="filter"
+onclick="filterProducts('albums','available',this)">
+موجود
+</button>
+
+<button class="filter"
+onclick="filterProducts('albums','off',this)">
+ناموجود
+</button>
+
+</div>
+
+<div class="products" id="albumsProducts"></div>
+
+</div>
+
+</section>
+
+
+<!-- CARDS -->
+
+<section class="page" id="cards">
+
+<div class="shop">
+
+<div class="shopHero">
+
+<div class="shopIcon">
+🃏
+</div>
+
+<h1>
+کارت‌های فوتبال
+</h1>
+
+<p>
+کارت مورد نظرت را جستجو کن.
+</p>
+
+</div>
+
+<div class="searchBox">
+
+<span class="searchIcon">🔎</span>
+
+<input
+id="cardSearch"
+type="text"
+placeholder="نام بازیکن یا کارت را جستجو کنید..."
+autocomplete="off">
+
+<button
+class="clearSearch"
+id="clearSearch"
+onclick="clearCardSearch()">
+×
+</button>
+
+</div>
+
+<div class="filters">
+
+<button class="filter active"
+onclick="filterProducts('cards','all',this)">
+همه کارت‌ها
+</button>
+
+<button class="filter"
+onclick="filterProducts('cards','available',this)">
+موجود
+</button>
+
+</div>
+
+<div class="products" id="cardsProducts"></div>
+
+</div>
+
+</section>
+
+
+<!-- PAYMENT -->
+
+<section class="page" id="payment">
+
+<div class="paymentSection">
+
+<div class="paymentHeader">
+
+<span class="bigIcon">
+💳
+</span>
+
+<h1>
+واریز <span>وجه</span>
+</h1>
+
+<p>
+برای پرداخت سفارش، مبلغ را به کارت زیر واریز کنید.
+</p>
+
+</div>
+
+
+<div class="bankCard">
+
+<div class="bankTop">
+
+<div class="bankName">
+KIMEDI AMIR
+</div>
+
+<div class="bankLogo">
+💳
+</div>
+
+</div>
+
+<div class="chip"></div>
+
+<div class="cardNumber">
+5047 0616 6322 7839
+</div>
+
+<div class="cardBottom">
+
+<div>
+
+<div class="cardHolderLabel">
+به نام
+</div>
+
+<div class="cardHolder">
+جبارفر
+</div>
+
+</div>
+
+<div class="cardMark">
+KIMEDI
+</div>
+
+</div>
+
+</div>
+
+
+<div class="paymentActions">
+
+<button
+class="paymentBtn copyCard"
+onclick="copyCardNumber()">
+📋 کپی شماره کارت
+</button>
+
+<button
+class="paymentBtn"
+style="
+background:#ffffff0a;
+color:white;
+border:1px solid #ffffff15;
+"
+onclick="showPage('invoice')">
+🧾 مشاهده فاکتور
+</button>
+
+</div>
+
+
+<div class="paymentInfo">
+
+<h3>
+⚠️ نکته مهم
+</h3>
+
+<p>
+بعد از واریز وجه، متن سفارش خود را از بخش سبد خرید کپی کنید
+و همراه با اطلاعات پرداخت برای آیدی روبیکای زیر ارسال کنید:
+</p>
+
+<p style="
+color:var(--gold);
+font-size:18px;
+font-weight:900;
+margin-top:10px;
+">
+@amirtbpedit
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- INVOICE -->
+
+<section class="page" id="invoice">
+
+<div class="invoiceSection">
+
+<div class="invoiceHeader">
+
+<span class="icon">
+🧾
+</span>
+
+<h1>
+فاکتور <span>سفارش</span>
+</h1>
+
+<p>
+فاکتور سفارش خود را مشاهده و به صورت PDF دانلود کنید.
+</p>
+
+</div>
+
+
+<div class="invoiceBox">
+
+<div id="invoiceContent"></div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+<div class="footerGrid">
+
+<div>
+
+<h2>
+KIMEDI AMIR
+</h2>
+
+<p style="margin-top:15px">
+فروشگاه کارت‌های فوتبال کیمدی امیر.
+کلکسیون خودت را بساز.
+</p>
+
+</div>
+
+<div>
+
+<h3>
+صفحات
+</h3>
+
+<ul>
+
+<li>
+<button onclick="showPage('home')">
+خانه
+</button>
+</li>
+
+<li>
+<button onclick="showPage('packs')">
+پک‌ها
+</button>
+</li>
+
+<li>
+<button onclick="showPage('albums')">
+آلبوم‌ها
+</button>
+</li>
+
+<li>
+<button onclick="showPage('cards')">
+کارت‌ها
+</button>
+</li>
+
+<li>
+<button onclick="showPage('payment')">
+واریز وجه
+</button>
+</li>
+
+<li>
+<button onclick="showPage('invoice')">
+فاکتور
+</button>
+</li>
+
+</ul>
+
+</div>
+
+<div>
+
+<h3>
+ثبت سفارش
+</h3>
+
+<p>
+روبیکا:
+</p>
+
+<p style="
+color:#ffd21f;
+font-weight:900;
+font-size:14px;
+">
+@amirtbpedit
+</p>
+
+</div>
+
+</div>
+
+<div class="copy">
+© 2026 KIMEDI AMIR
+</div>
+
+</footer>
+
+
+<!-- CART MODAL -->
+
+<div class="modal" id="cartModal">
+
+<div class="modalBox">
+
+<button class="close" onclick="closeCart()">
+×
+</button>
+
+<h2>
+🛒 سبد خرید
+</h2>
+
+<div id="orderList"></div>
+
+<div class="total">
+مجموع:
+<span id="total">۰</span>
+تومان
+</div>
+
+<div class="rubika">
+
+برای ثبت سفارش، متن زیر را کپی کنید
+و در روبیکا برای
+<strong>@amirtbpedit</strong>
+ارسال کنید.
+
+<br>
+
+<button class="copyBtn" onclick="copyOrder()">
+📋 کپی متن سفارش
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- FAVORITES -->
+
+<div class="modal" id="favoriteModal">
+
+<div class="modalBox">
+
+<button class="close" onclick="closeFavorites()">
+×
+</button>
+
+<h2>
+❤️ علاقه‌مندی‌های من
+</h2>
+
+<div id="favoriteList"></div>
+
+</div>
+
+</div>
+
+
+<!-- SUCCESS -->
+
+<div class="successOverlay" id="successOverlay">
+
+<div class="successContent">
+
+<div class="successBall">
+⚽
+</div>
+
+<div class="successCheck">
+✓
+</div>
+
+<h1>
+انجام شد!
+</h1>
+
+<p>
+متن سفارش با موفقیت کپی شد.
+<br>
+آن را برای ثبت سفارش در روبیکا ارسال کنید.
+</p>
+
+<p class="successRubika">
+📱 @amirtbpedit
+</p>
+
+<button
+class="successClose"
+onclick="closeSuccess()">
+✓ متوجه شدم
+</button>
+
+</div>
+
+</div>
+
+
+<!-- TOAST -->
+
+<div class="toast" id="toast"></div>
+
+
+<script>
+
+/* DATA */
+
+const products={
+
+packs:[
+["پک آیکانز",45000,"🏆",true],
+["پک‌های هیروز",40000,"🦸",true],
+["پک‌های چمپس",25000,"🥇",true],
+["پک‌های جام جهانی",70000,"🌍",false],
+["پک‌های کیمدی شو",60000,"🎭",false],
+["پک‌های سامر",80000,"☀️",true]
+],
+
+albums:[
+["آلبوم طرح کمیک",250000,"🎨",false],
+["آلبوم طرح رویال",250000,"👑",false],
+["آلبوم طرح مجیک تویینز",250000,"✨",false],
+["آلبوم طرح راک استار",250000,"🎸",false]
+],
+
+cards:[
+["کارت بازگشت به مدرسه پایولو مالدینی 2026",150000,"🛡️",true],
+["کارت توتی روبن دیاز 2025",25000,"⚽",true],
+["کارت صد رونالدینیو 2025",50000,"💯",true],
+["کارت مارادونا صد 2025",50000,"💯",true],
+["کارت کوپا امریکا وینیسیوس جونیور 2025",45000,"🇧🇷",true],
+["کارت فیفا 2025 کلوزه",50000,"🏆",true],
+["کارت یورو پیتر چک 2025",35000,"🧤",true],
+["کارت یورو لوکا مودریچ 2025",35000,"⭐",true],
+["کارت بیسیک کوین دیبروینه 2025",10000,"🔵",true],
+["کارت بیسیک زکریا 2025",10000,"🔵",true],
+["کارت بیسیک مارکوس لورنته 2025",10000,"🔵",true],
+["کارت بیسیک براهیم دیاز 2025",10000,"🔵",true],
+["کارت ادونس گوتی 2025",15000,"🔥",true],
+["کارت کلاب پاریس اند ژرمن 2025",35000,"🔴",true],
+["کارت کلاب منچستر سیتی 2025",35000,"🔵",true],
+["کارت کلاب بارسلونا 2025",35000,"🔵",true],
+["کارت کلاب چلسی 2025",35000,"🔵",true],
+["کارت بیسیک جانلوییجی دوناروما 2026",15000,"🧤",true],
+["کارت کلاب منچستر سیتی 2026",45000,"🔵",true],
+["کارت کلاب چلسی 2026",45000,"🔵",true],
+["کارت بیسیک امباپه 2025",20000,"⚡",true],
+["کارت پرایم روبرتو باجو 5 2025",45000,"👑",true],
+["کارت پرایم رابرت لواندوفسکی 5 2025",45000,"🔥",true],
+["کارت پرایم مسوت اوزیل 1 2025",45000,"✨",true],
+["کارت بیسیک رشفورد 2025",10000,"🔴",true],
+["کارت بیسیک تیبو کورتوآز 2025",10000,"🧤",true]
+]
+
+};
+
+
+/* HELPERS */
+
+function money(n){
+return Number(n).toLocaleString("fa-IR");
+}
+
+
+/* PARTICLES */
+
+const particles=
+document.getElementById("particles");
+
+for(let i=0;i<55;i++){
+
+const p=document.createElement("div");
+
+p.className="particle";
+
+p.style.left=Math.random()*100+"%";
+
+p.style.animationDuration=
+(7+Math.random()*12)+"s";
+
+p.style.animationDelay=
+(-Math.random()*15)+"s";
+
+p.style.opacity=
+.15+Math.random()*.7;
+
+particles.appendChild(p);
+
+}
+
+
+/* FAVORITES */
+
+let favorites=[];
+
+try{
+favorites=
+JSON.parse(
+localStorage.getItem("kimediFavorites")||"[]"
+);
+}catch(e){
+favorites=[];
+}
+
+function saveFavorites(){
+
+localStorage.setItem(
+"kimediFavorites",
+JSON.stringify(favorites)
+);
+
+updateFavoriteCount();
+
+}
+
+function updateFavoriteCount(){
+
+document.getElementById("favoriteCount")
+.innerText=favorites.length;
+
+}
+
+function isFavorite(type,index){
+
+return favorites.some(
+x=>x.type===type&&x.index===index
+);
+
+}
+
+function toggleFavorite(type,index,button){
+
+const existing=
+favorites.findIndex(
+x=>x.type===type&&x.index===index
+);
+
+if(existing>=0){
+
+favorites.splice(existing,1);
+
+button.classList.remove("liked");
+
+button.innerHTML="♡";
+
+showToast("از علاقه‌مندی‌ها حذف شد");
+
+}else{
+
+favorites.push({
+type:type,
+index:index
+});
+
+button.classList.add("liked");
+
+button.innerHTML="♥";
+
+const heart=document.createElement("div");
+
+heart.className="heartParticle";
+
+heart.innerText="♥";
+
+const rect=button.getBoundingClientRect();
+
+heart.style.left=
+rect.left+rect.width/2+"px";
+
+heart.style.top=
+rect.top+rect.height/2+"px";
+
+document.body.appendChild(heart);
+
+setTimeout(()=>{
+heart.remove();
+},900);
+
+showToast("❤️ به علاقه‌مندی‌ها اضافه شد");
+
+}
+
+saveFavorites();
+
+}
+
+
+/* FAVORITES MODAL */
+
+function openFavorites(){
+
+const list=
+document.getElementById("favoriteList");
+
+if(!favorites.length){
+
+list.innerHTML=`
+
+<div class="empty">
+
+<div>♡</div>
+
+هنوز محصولی به علاقه‌مندی‌ها اضافه نکرده‌ای.
+
+</div>
+
+`;
+
+}else{
+
+list.innerHTML=
+favorites.map((f,i)=>{
+
+const p=products[f.type][f.index];
+
+if(!p)return"";
+
+return`
+
+<div class="favoriteProduct">
+
+<div class="favoriteProductIcon">
+${p[2]}
+</div>
+
+<div class="favoriteProductInfo">
+
+<h4>
+${p[0]}
+</h4>
+
+<p>
+${money(p[1])} تومان
+</p>
+
+</div>
+
+<button
+class="favoriteRemove"
+onclick="removeFavorite(${i})">
+♥
+</button>
+
+</div>
+
+`;
+
+}).join("");
+
+}
+
+document
+.getElementById("favoriteModal")
+.classList.add("show");
+
+}
+
+function closeFavorites(){
+
+document
+.getElementById("favoriteModal")
+.classList.remove("show");
+
+}
+
+function removeFavorite(i){
+
+favorites.splice(i,1);
+
+saveFavorites();
+
+openFavorites();
+
+}
+
+
+/* NAVIGATION */
+
+function showPage(page){
+
+document
+.querySelectorAll(".page")
+.forEach(
+x=>x.classList.remove("active")
+);
+
+const target=
+document.getElementById(page);
+
+if(target){
+target.classList.add("active");
+}
+
+document
+.querySelectorAll(".nav button")
+.forEach(btn=>{
+btn.classList.toggle(
+"active",
+btn.dataset.page===page
+);
+});
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+if(page==="invoice"){
+renderInvoice();
+}
+
+}
+
+
+/* PRODUCTS */
+
+function renderProducts(type,list=null){
+
+const data=list||products[type];
+
+const container=
+document.getElementById(
+type+"Products"
+);
+
+container.innerHTML="";
+
+if(!data.length){
+
+container.innerHTML=`
+
+<div class="noResults">
+
+<div>🔎</div>
+
+<h3>
+چیزی پیدا نشد!
+</h3>
+
+</div>
+
+`;
+
+return;
+
+}
+
+data.forEach((p,index)=>{
+
+const realIndex=
+products[type].indexOf(p);
+
+const liked=
+isFavorite(type,realIndex);
+
+const card=
+document.createElement("div");
+
+card.className="product";
+
+card.style.animationDelay=
+index*.045+"s";
+
+card.innerHTML=`
+
+<div class="productImage">
+
+<div class="productIcon">
+${p[2]}
+</div>
+
+<div class="status ${p[3]?"":"off"}">
+${p[3]?"موجود":"ناموجود"}
+</div>
+
+<button
+class="favoriteBtn ${liked?"liked":""}"
+onclick="
+toggleFavorite(
+'${type}',
+${realIndex},
+this
+)
+">
+
+${liked?"♥":"♡"}
+
+</button>
+
+</div>
+
+<h3>
+${p[0]}
+</h3>
+
+<div class="productBottom">
+
+<div class="price">
+${money(p[1])}
+<small>تومان</small>
+</div>
+
+<button
+class="buy"
+${p[3]?"":"disabled"}
+onclick="
+addToCart(
+'${type}',
+${realIndex},
+this
+)
+">
+
+${p[3]?"افزودن":"ناموجود"}
+
+</button>
+
+</div>
+
+`;
+
+container.appendChild(card);
+
+});
+
+}
+
+
+/* FILTER */
+
+function filterProducts(type,filter,button){
+
+button.parentElement
+.querySelectorAll(".filter")
+.forEach(
+x=>x.classList.remove("active")
+);
+
+button.classList.add("active");
+
+let data=products[type];
+
+if(filter==="available"){
+data=data.filter(p=>p[3]);
+}
+
+if(filter==="off"){
+data=data.filter(p=>!p[3]);
+}
+
+renderProducts(type,data);
+
+}
+
+
+/* SEARCH */
+
+const cardSearch=
+document.getElementById("cardSearch");
+
+cardSearch.addEventListener(
+"input",
+function(){
+
+const query=
+this.value.trim().toLowerCase();
+
+document.getElementById(
+"clearSearch"
+).style.display=
+query?"block":"none";
+
+if(!query){
+
+renderProducts("cards");
+
+return;
+
+}
+
+const result=
+products.cards.filter(
+p=>p[0].toLowerCase().includes(query)
+);
+
+renderProducts("cards",result);
+
+});
+
+function clearCardSearch(){
+
+cardSearch.value="";
+
+document.getElementById(
+"clearSearch"
+).style.display="none";
+
+renderProducts("cards");
+
+cardSearch.focus();
+
+}
+
+
+/* CART */
+
+let cart=[];
+
+try{
+
+cart=
+JSON.parse(
+localStorage.getItem("kimediCart")||"[]"
+);
+
+}catch(e){
+
+cart=[];
+
+}
+
+function saveCart(){
+
+localStorage.setItem(
+"kimediCart",
+JSON.stringify(cart)
+);
+
+updateCart();
+
+renderInvoice();
+
+}
+
+function updateCart(){
+
+document.getElementById("cartCount")
+.innerText=cart.length;
+
+}
+
+function addToCart(type,index,button){
+
+const p=products[type][index];
+
+if(!p[3])return;
+
+cart.push({
+name:p[0],
+price:p[1]
+});
+
+saveCart();
+
+button.classList.add("added");
+
+button.innerText="✓ اضافه شد";
+
+showToast("محصول به سبد خرید اضافه شد 🛒");
+
+setTimeout(()=>{
+
+button.classList.remove("added");
+
+button.innerText="افزودن";
+
+},1000);
+
+}
+
+function removeItem(index){
+
+cart.splice(index,1);
+
+saveCart();
+
+openCart();
+
+}
+
+function openCart(){
+
+const list=
+document.getElementById("orderList");
+
+if(!cart.length){
+
+list.innerHTML=`
+
+<div class="empty">
+
+<div>🛒</div>
+
+سبد خرید شما خالی است.
+
+</div>
+
+`;
+
+document.getElementById("total")
+.innerText="۰";
+
+}else{
+
+let sum=0;
+
+list.innerHTML=
+cart.map((item,index)=>{
+
+sum+=Number(item.price);
+
+return`
+
+<div class="orderItem">
+
+<div class="orderName">
+
+${index+1}.
+${item.name}
+
+<br>
+
+<span class="orderPrice">
+${money(item.price)} تومان
+</span>
+
+</div>
+
+<button
+class="remove"
+onclick="removeItem(${index})">
+×
+</button>
+
+</div>
+
+`;
+
+}).join("");
+
+document.getElementById("total")
+.innerText=money(sum);
+
+}
+
+document
+.getElementById("cartModal")
+.classList.add("show");
+
+}
+
+function closeCart(){
+
+document
+.getElementById("cartModal")
+.classList.remove("show");
+
+}
+
+
+/* COPY CARD */
+
+async function copyCardNumber(){
+
+const number="5047061663227839";
+
+try{
+
+await navigator.clipboard.writeText(number);
+
+showToast("✓ شماره کارت کپی شد");
+
+}catch(e){
+
+const area=document.createElement("textarea");
+
+area.value=number;
+
+document.body.appendChild(area);
+
+area.select();
+
+document.execCommand("copy");
+
+area.remove();
+
+showToast("✓ شماره کارت کپی شد");
+
+}
+
+}
+
+
+/* COPY ORDER */
+
+async function copyOrder(){
+
+if(!cart.length){
+
+showToast("سبد خرید خالی است");
+
+return;
+
+}
+
+let total=0;
+
+let text=
+"سلام 👋\n"+
+"از سایت کیمدی امیر می‌خواهم سفارش بدهم.\n\n"+
+"📦 محصولات:\n";
+
+cart.forEach((item,i)=>{
+
+total+=Number(item.price);
+
+text+=
+"\n"+
+(i+1)+". "+
+item.name+
+" — "+
+money(item.price)+
+" تومان";
+
+});
+
+text+=
+"\n\n💰 مجموع: "+
+money(total)+
+" تومان"+
+"\n\n📱 آیدی روبیکا: @amirtbpedit";
+
+
+try{
+
+await navigator.clipboard.writeText(text);
+
+}catch(e){
+
+const area=document.createElement("textarea");
+
+area.value=text;
+
+document.body.appendChild(area);
+
+area.select();
+
+document.execCommand("copy");
+
+area.remove();
+
+}
+
+closeCart();
+
+document
+.getElementById("successOverlay")
+.classList.add("show");
+
+}
+
+
+/* INVOICE */
+
+function renderInvoice(){
+
+const box=
+document.getElementById("invoiceContent");
+
+if(!cart.length){
+
+box.innerHTML=`
+
+<div class="invoiceEmpty">
+
+<div>🧾</div>
+
+<h3>
+هنوز سفارشی برای فاکتور وجود ندارد.
+</h3>
+
+<p style="margin-top:10px">
+ابتدا محصولات را به سبد خرید اضافه کنید.
+</p>
+
+<button
+class="invoiceAction invoiceCart"
+style="margin-top:20px"
+onclick="showPage('cards')">
+🃏 رفتن به فروشگاه
+</button>
+
+</div>
+
+`;
+
+return;
+
+}
+
+let total=0;
+
+let items="";
+
+cart.forEach((item,i)=>{
+
+total+=Number(item.price);
+
+items+=`
+
+<div class="invoiceItem">
+
+<div class="invoiceItemName">
+
+${i+1}.
+${item.name}
+
+</div>
+
+<div class="invoiceItemPrice">
+
+${money(item.price)}
+تومان
+
+</div>
+
+</div>
+
+`;
+
+});
+
+box.innerHTML=`
+
+<div style="
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
+">
+
+<div>
+
+<div style="
+font-family:Orbitron;
+color:var(--gold);
+font-weight:900;
+">
+KIMEDI AMIR
+</div>
+
+<div style="
+font-size:11px;
+color:#788499;
+margin-top:5px;
+">
+فاکتور فروش کارت فوتبال
+</div>
+
+</div>
+
+<div style="
+font-size:12px;
+color:#8995a9;
+">
+2026
+</div>
+
+</div>
+
+<div class="invoiceItems">
+
+${items}
+
+</div>
+
+<div class="invoiceTotal">
+
+<span>
+مبلغ کل
+</span>
+
+<span>
+${money(total)}
+ تومان
+</span>
+
+</div>
+
+<div style="
+margin-top:20px;
+padding:15px;
+border-radius:14px;
+background:#ffd21f08;
+border:1px solid #ffd21f22;
+font-size:12px;
+line-height:2;
+">
+
+💳 اطلاعات واریز:
+
+<br>
+
+شماره کارت:
+<strong style="
+color:var(--gold);
+direction:ltr;
+display:inline-block;
+">
+5047 0616 6322 7839
+</strong>
+
+<br>
+
+به نام:
+<strong>
+جبارفر
+</strong>
+
+<br>
+
+روبیکا:
+<strong style="color:var(--gold)">
+@amirtbpedit
+</strong>
+
+</div>
+
+<div class="invoiceActions">
+
+<button
+class="invoiceAction downloadInvoice"
+onclick="downloadInvoicePDF()">
+📄 دانلود فاکتور PDF
+</button>
+
+<button
+class="invoiceAction invoiceCart"
+onclick="openCart()">
+🛒 مشاهده سبد خرید
+</button>
+
+</div>
+
+`;
+
+}
+
+
+/* PDF */
+
+function downloadInvoicePDF(){
+
+if(!cart.length){
+
+showToast("سبد خرید خالی است");
+
+return;
+
+}
+
+const {jsPDF} = window.jspdf;
+
+const doc=
+new jsPDF();
+
+const total=
+cart.reduce(
+(sum,item)=>sum+Number(item.price),
+0
+);
+
+
+/*
+برای جلوگیری از خراب شدن PDF فارسی،
+نام فایل و ساختار PDF انگلیسی است
+و اطلاعات سفارش با متن ساده درج می‌شود.
+*/
+
+doc.setFillColor(7,16,29);
+
+doc.rect(
+0,
+0,
+210,
+297,
+"F"
+);
+
+doc.setTextColor(255,210,31);
+
+doc.setFontSize(25);
+
+doc.text(
+"KIMEDI AMIR",
+105,
+30,
+{
+align:"center"
+}
+);
+
+doc.setTextColor(255,255,255);
+
+doc.setFontSize(13);
+
+doc.text(
+"FOOTBALL CARD STORE",
+105,
+40,
+{
+align:"center"
+}
+);
+
+doc.setDrawColor(255,210,31);
+
+doc.line(
+20,
+48,
+190,
+48
+);
+
+doc.setFontSize(11);
+
+let y=65;
+
+doc.setTextColor(255,255,255);
+
+cart.forEach((item,index)=>{
+
+doc.text(
+(index+1)+". "+item.name,
+20,
+y
+);
+
+doc.setTextColor(255,210,31);
+
+doc.text(
+money(item.price)+" Toman",
+190,
+y,
+{
+align:"right"
+}
+);
+
+doc.setTextColor(255,255,255);
+
+y+=12;
+
+});
+
+doc.setDrawColor(80,90,110);
+
+doc.line(
+20,
+y+3,
+190,
+y+3
+);
+
+doc.setFontSize(16);
+
+doc.setTextColor(255,210,31);
+
+doc.text(
+"TOTAL: "+money(total)+" Toman",
+190,
+y+18,
+{
+align:"right"
+}
+);
+
+doc.setFontSize(11);
+
+doc.setTextColor(255,255,255);
+
+doc.text(
+"Payment Card: 5047 0616 6322 7839",
+20,
+y+40
+);
+
+doc.text(
+"Card Holder: JABARFAR",
+20,
+y+50
+);
+
+doc.text(
+"Rubika: @amirtbpedit",
+20,
+y+60
+);
+
+doc.setTextColor(120,130,145);
+
+doc.setFontSize(9);
+
+doc.text(
+"Thank you for shopping at KIMEDI AMIR",
+105,
+280,
+{
+align:"center"
+}
+);
+
+doc.save(
+"Kimedi-Amir-Invoice.pdf"
+);
+
+showToast(
+"✓ فاکتور PDF دانلود شد"
+);
+
+}
+
+
+/* TOAST */
+
+let toastTimer;
+
+function showToast(text){
+
+const toast=
+document.getElementById("toast");
+
+toast.innerText=text;
+
+toast.classList.add("show");
+
+clearTimeout(toastTimer);
+
+toastTimer=setTimeout(()=>{
+
+toast.classList.remove("show");
+
+},2500);
+
+}
+
+
+/* SUCCESS */
+
+function closeSuccess(){
+
+document
+.getElementById("successOverlay")
+.classList.remove("show");
+
+}
+
+
+/* MODALS */
+
+document
+.getElementById("cartModal")
+.addEventListener("click",e=>{
+
+if(e.target.id==="cartModal"){
+closeCart();
+}
+
+});
+
+document
+.getElementById("favoriteModal")
+.addEventListener("click",e=>{
+
+if(e.target.id==="favoriteModal"){
+closeFavorites();
+}
+
+});
+
+document.addEventListener("keydown",e=>{
+
+if(e.key==="Escape"){
+
+closeCart();
+
+closeFavorites();
+
+closeSuccess();
+
+}
+
+});
+
+
+/* NAV */
+
+document
+.querySelectorAll(".nav button")
+.forEach(btn=>{
+
+btn.addEventListener(
+"click",
+()=>showPage(btn.dataset.page)
+);
+
+});
+
+
+/* LOADER */
+
+let progress=0;
+
+const loaderMessages=[
+"در حال آماده‌سازی فروشگاه...",
+"در حال بارگذاری پک‌ها...",
+"در حال آماده‌سازی آلبوم‌ها...",
+"در حال چیدن کارت‌های فوتبال...",
+"در حال آماده‌سازی علاقه‌مندی‌ها...",
+"در حال آماده‌سازی سبد خرید...",
+"در حال آماده‌سازی فاکتور...",
+"تقریباً آماده‌ایم..."
+];
+
+let msg=0;
+
+const interval=setInterval(()=>{
+
+progress+=Math.floor(Math.random()*6)+2;
+
+if(progress>=100){
+
+progress=100;
+
+clearInterval(interval);
+
+document.getElementById("progress")
+.style.width="100%";
+
+document.getElementById("percent")
+.innerText="100%";
+
+document.getElementById("loaderText")
+.innerText="فروشگاه آماده است ⚽";
+
+setTimeout(()=>{
+
+document.getElementById("loader")
+.classList.add("hide");
+
+},700);
+
+}else{
+
+document.getElementById("progress")
+.style.width=progress+"%";
+
+document.getElementById("percent")
+.innerText=progress+"%";
+
+if(progress>10 && Math.random()>.55){
+
+msg=Math.min(
+msg+1,
+loaderMessages.length-1
+);
+
+document.getElementById("loaderText")
+.innerText=
+loaderMessages[msg];
+
+}
+
+}
+
+},80);
+
+
+/* INITIAL */
+
+renderProducts("packs");
+
+renderProducts("albums");
+
+renderProducts("cards");
+
+updateCart();
+
+updateFavoriteCount();
+
+renderInvoice();
+
+</script>
+
+</body>
+</html>
